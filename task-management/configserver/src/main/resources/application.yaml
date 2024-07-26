@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/feyzaozcini/task-management-config
+          uri: https://github.com/feyzaozcini/task-management-config.git
 
 server:
   port: 8079

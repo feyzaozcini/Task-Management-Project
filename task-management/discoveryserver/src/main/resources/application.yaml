@@ -2,12 +2,12 @@ spring:
   application:
     name: discoveryserver
 
-  cloud:
-    config:
-      profile: local
-  config:
-    import: "configserver:${configUrl}"
+server:
+  port: 8888
 
-
-configUrl: http://localhost:8079
-
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/
