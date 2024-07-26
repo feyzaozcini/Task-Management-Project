@@ -16,7 +16,7 @@ import java.util.Map;
 @Service
 public class BaseJwtService {
     private long EXPIRATION = 600000;
-    private String SECRET_KEY = "r9qSZrihqYt79JPbHpAaD//OX8RICTOIRGPzESiHbiGT1Ppc4G1uMTbLu5Lw7/o6GSbtpEPZmzMELKH1G1qirjerCbpASu3DZYN1AsGgMZ9JEhSwzwYzfp0h8Ooqu2R1r/s2qiN+PxInHX1uee8yQcwBEIkaU9U3EUMvSYsdY+CBSWsIJeywC9p9hWJn1cBcFBBHjDQ0zJrEK6bwDfRI9DGatN+thR8OmEzER/RKyYv8AFQxeYsw3ZZC+nry2kgm5T48NlEyqhif0logyzAYvRAIpjhV+n/yXJe0D6CJOyMiPaYT217JHdStcD3THjVtGgIoF0mSWkOMFvLGdTLb4WYcx3jORFC+MshYzhDGFkY=";
+    private String SECRET_KEY = "xOiBVKs+MbCRf3R+IKylObzEiRTEA6MV6Xou+06R9qHU9zPfEQE+IuYJktqvYs+UmhaYW6Lu8E9qO5lmoXRi/huDMmFtO1HdwwlXVwK2u2MFejQpIG6MkxONeOwkyLOKHn4E8LiDAYRmAfsuhppDtmZ/w7CsUY+pKPDd1yXvP46/xVdfdOfjf4mf085rSmHKSWmiNwN0+ZE/zlfgUzTnKKNl2ynED+NZ2GFfIwTcnPY3DagTvDgpjqWc+GnYqiD/OEap/owdyKavigKtPAYwnQouyO1x5fQCrkBP81qhKxlSWfv5SfDuwPWvTDoMzHNs0+wiSx2DVGWmOZd8VlruMqrQEsYUAf5MFInaJjbbCM0=";
 
     public String generateToken(String username, Map<String, Object> extraClaims)
     {
