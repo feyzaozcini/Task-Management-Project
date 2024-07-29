@@ -1,7 +1,5 @@
 package com.turkcell.projectservice.entities;
 
-
-import com.turkcell.projectservice.entities.enums.ProjectStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +19,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
 
     @Column(name = "created_date")
@@ -38,11 +36,8 @@ public class Project {
     private String description;
     @Column(name = "owner")
     private String owner;
-    @Column(name = "status")
-    private ProjectStatus status;
 
-    @ElementCollection
-    @CollectionTable(name = "user_ids")
-    @Column(name = "users")
-    private List<Integer> userIds;
+    @Column(name = "active")
+    private Boolean active;
+
 }
