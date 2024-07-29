@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class ProjectSearchRequest {
+
     private Integer id;
 
     private String projectName;

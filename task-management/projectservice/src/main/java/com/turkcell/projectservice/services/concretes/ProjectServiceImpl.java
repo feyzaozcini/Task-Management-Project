@@ -87,7 +87,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (request.getId() != 0) {
+        if (request.getId() != null) {
             predicates.add(cb.equal(project.get("id"), request.getId()));
         }
 
@@ -102,7 +102,9 @@ public class ProjectServiceImpl implements ProjectService {
         cq.select(cb.construct(ProjectSearchResponse.class,
                 project.get("id"),
                 project.get("projectName"),
-                project.get("owner")
+                project.get("owner"),
+                project.get("description"),
+                project.get("active")
         )).where(cb.and(predicates.toArray(new Predicate[0])));
 
 

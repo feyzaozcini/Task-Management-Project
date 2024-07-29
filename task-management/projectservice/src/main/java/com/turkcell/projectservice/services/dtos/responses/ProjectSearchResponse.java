@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+
 
 
 @Getter
@@ -19,4 +19,8 @@ public class ProjectSearchResponse {
     private String projectName;
 
     private String owner;
+
+    private String description;
+
+    private Boolean active;
 }
