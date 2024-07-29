@@ -2,12 +2,15 @@ package com.turkcell.projectservice.controllers;
 
 import com.turkcell.projectservice.services.abstracts.ProjectService;
 import com.turkcell.projectservice.services.dtos.requests.ProjectAddRequest;
+import com.turkcell.projectservice.services.dtos.requests.ProjectSearchRequest;
 import com.turkcell.projectservice.services.dtos.requests.ProjectUpdateRequest;
 import com.turkcell.projectservice.services.dtos.responses.CreatedProjectResponse;
 import com.turkcell.projectservice.services.dtos.responses.ProjectGetResponse;
+import com.turkcell.projectservice.services.dtos.responses.ProjectSearchResponse;
 import com.turkcell.projectservice.services.dtos.responses.ProjectUpdateResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +39,12 @@ public class ProjectController {
     @PutMapping("/update")
     public ProjectUpdateResponse updateProduct(@Valid @RequestBody ProjectUpdateRequest request){
         return projectService.updateProject(request);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<ProjectSearchResponse>> searchProducts(@RequestBody ProjectSearchRequest request) {
+        List<ProjectSearchResponse> results = projectService.searchProject(request);
+        return ResponseEntity.ok(results);
     }
 
     @DeleteMapping("delete/{id}")

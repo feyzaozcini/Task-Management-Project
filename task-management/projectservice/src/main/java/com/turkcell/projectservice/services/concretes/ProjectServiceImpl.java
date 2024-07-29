@@ -4,16 +4,25 @@ import com.turkcell.projectservice.entities.Project;
 import com.turkcell.projectservice.repositories.ProjectRepository;
 import com.turkcell.projectservice.services.abstracts.ProjectService;
 import com.turkcell.projectservice.services.dtos.requests.ProjectAddRequest;
+import com.turkcell.projectservice.services.dtos.requests.ProjectSearchRequest;
 import com.turkcell.projectservice.services.dtos.requests.ProjectUpdateRequest;
 import com.turkcell.projectservice.services.dtos.responses.CreatedProjectResponse;
 import com.turkcell.projectservice.services.dtos.responses.ProjectGetResponse;
+import com.turkcell.projectservice.services.dtos.responses.ProjectSearchResponse;
 import com.turkcell.projectservice.services.dtos.responses.ProjectUpdateResponse;
 import com.turkcell.projectservice.services.mappers.ProjectMapper;
 import com.turkcell.projectservice.services.rules.ProjectBusinessRules;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +31,7 @@ import java.util.stream.Collectors;
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final ProjectBusinessRules projectBusinessRules;
+
 
 
     @Override
@@ -64,4 +74,39 @@ public class ProjectServiceImpl implements ProjectService {
         project.setDeletedDate(LocalDateTime.now());
         projectRepository.save(project);
     }
-}
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+
+    @Override
+    public List<ProjectSearchResponse> searchProject(ProjectSearchRequest request) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProjectSearchResponse> cq = cb.createQuery(ProjectSearchResponse.class);
+        Root<Project> project = cq.from(Project.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (request.getId() != 0) {
+            predicates.add(cb.equal(project.get("id"), request.getId()));
+        }
+
+        if (request.getProjectName() != null && !request.getProjectName().isEmpty()) {
+            predicates.add(cb.like(project.get("projectName"), "%" + request.getProjectName() + "%"));
+        }
+
+        if (request.getOwner() != null && !request.getOwner().isEmpty()) {
+            predicates.add(cb.like(project.get("owner"), "%" + request.getOwner() + "%"));
+        }
+
+        cq.select(cb.construct(ProjectSearchResponse.class,
+                project.get("id"),
+                project.get("projectName"),
+                project.get("owner")
+        )).where(cb.and(predicates.toArray(new Predicate[0])));
+
+
+        return entityManager.createQuery(cq).getResultList();
+
+    }
+    }
