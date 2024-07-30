@@ -3,6 +3,7 @@ package com.turkcell.userservice.services.rules;
 
 import com.turkcell.userservice.core.utils.types.BusinessException;
 import com.turkcell.userservice.repositories.UserRepository;
+import jakarta.ws.rs.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,12 @@ public class UserBusinessRules {
     public void checkIfUserNotExists(String email) {
         if (!userRepository.existsByEmail(email)) {
             throw new BusinessException("User not found!");
+        }
+    }
+
+    public void checkIfUserExistsById(int userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new NotFoundException("User Not Found!");
         }
     }
 }

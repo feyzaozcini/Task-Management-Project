@@ -3,6 +3,7 @@ package com.turkcell.userservice.services.mappers;
 import com.turkcell.userservice.entities.User;
 import com.turkcell.userservice.services.dtos.requests.LoginRequest;
 import com.turkcell.userservice.services.dtos.requests.RegisterRequest;
+import com.turkcell.userservice.services.dtos.responses.UserGetResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -16,4 +17,5 @@ public interface UserMapper {
 
     User userFromLoginRequest(LoginRequest request);
 
+    UserGetResponse getResponseFromUser(User user);
 }
