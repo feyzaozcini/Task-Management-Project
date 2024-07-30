@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/task-management/discoveryserver/pom.xml" />
         <option value="$PROJECT_DIR$/task-management/userservice/pom.xml" />
         <option value="$PROJECT_DIR$/task-management/projectservice/pom.xml" />
+        <option value="$PROJECT_DIR$/task-management/taskservice/pom.xml" />
       </list>
     </option>
   </component>
