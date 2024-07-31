@@ -22,8 +22,12 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         baseSecurityService.configureCoreSecurity(http);
-        http.authorizeHttpRequests((req) -> req.requestMatchers(WHITE_LIST).permitAll()
-                .requestMatchers("/api/v1/**").hasAnyAuthority("Kodlama.io").anyRequest().authenticated());
+        http
+                .authorizeHttpRequests((req)-> req
+                        .requestMatchers(WHITE_LIST).permitAll()
+                        .requestMatchers(("/api/v1/*"))
+                        .hasAnyAuthority("Turkcell")
+                        .anyRequest().authenticated());
         return http.build();
     }
 }

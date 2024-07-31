@@ -120,8 +120,26 @@
 			<artifactId>core</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+        <dependency>
+            <groupId>com.turkcell</groupId>
+            <artifactId>projectservice</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+		<dependency>
+			<groupId>com.turkcell</groupId>
+			<artifactId>projectservice</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+        <dependency>
+            <groupId>com.turkcell</groupId>
+            <artifactId>userservice</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<dependencyManagement>
 		<dependencies>

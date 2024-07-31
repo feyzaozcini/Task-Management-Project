@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/auth")
 @RequiredArgsConstructor
@@ -29,6 +31,10 @@ public class AuthController {
         return authService.getUserById(id);
     }
 
+    @GetMapping("/ids")
+    public List<UserGetResponse> getUsersByIds(@RequestParam List<Integer> ids) {
+        return authService.getUserByIds(ids);
+    }
 
 
 

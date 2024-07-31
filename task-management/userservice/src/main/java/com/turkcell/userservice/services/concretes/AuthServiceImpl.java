@@ -20,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,4 +62,14 @@ public class AuthServiceImpl implements AuthService {
         userBusinessRules.checkIfUserExistsById(id);
         return UserMapper.INSTANCE.getResponseFromUser(userRepository.findById(id).orElseThrow());
     }
+
+    @Override
+    public List<UserGetResponse> getUserByIds(List<Integer> ids) {
+        List<User> users = userRepository.findAllById(ids);
+        users.forEach(user -> userBusinessRules.checkIfUserExistsById(user.getId()));
+        return users.stream()
+                .map(UserMapper.INSTANCE::getResponseFromUser)
+                .collect(Collectors.toList());
+    }
+
 }

@@ -2,7 +2,7 @@ package com.turkcell.userservice.entities;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +12,10 @@ import java.util.Set;
 
 @Entity
 @Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="users")
 public class User implements UserDetails {
 
