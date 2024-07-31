@@ -36,6 +36,7 @@ public class TaskServiceImpl implements TaskService {
         Task task= TaskMapper.INSTANCE.taskFromRequest(request);
         task.setStartDate(LocalDateTime.now());
         task.setEndDate(task.getDeadline().plusDays(10));
+        task.setActive(true);
         task=taskRepository.save(task);
 
         //Alınan userları ve projeyi get isteği atarak getirme

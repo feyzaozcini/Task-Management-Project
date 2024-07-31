@@ -38,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
         userBusinessRules.checkIfUserAlreadyExists(request.getEmail());
         User user = UserMapper.INSTANCE.userFromRegisterRequest(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setActive(true);
         user.setCreatedDate(LocalDateTime.now());
         userService.add(user);
     }
