@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Proje.iml" filepath="$PROJECT_DIR$/.idea/Proje.iml" />
+      <module fileurl="file://$PROJECT_DIR$/task-management/common/common.iml" filepath="$PROJECT_DIR$/task-management/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/task-management/configserver/configserver.iml" filepath="$PROJECT_DIR$/task-management/configserver/configserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/task-management/discoveryserver/discoveryserver.iml" filepath="$PROJECT_DIR$/task-management/discoveryserver/discoveryserver.iml" />

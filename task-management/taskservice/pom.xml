@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.turkcell</groupId>
 	<artifactId>taskservice</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>taskservice</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
@@ -21,6 +21,7 @@
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -30,9 +31,9 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.github.haiykut</groupId>
+			<groupId>com.turkcell</groupId>
 			<artifactId>common</artifactId>
-			<version>1.0.2</version>
+			<version>0.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

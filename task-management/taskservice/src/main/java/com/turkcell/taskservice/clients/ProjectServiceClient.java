@@ -1,7 +1,7 @@
 package com.turkcell.taskservice.clients;
 
 
-import com.turkcell.taskservice.clients.dtos.projectservice.ProjectGetResponse;
+import com.turkcell.common.ProjectGetResponse;
 import com.turkcell.taskservice.core.configurations.FeignConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
