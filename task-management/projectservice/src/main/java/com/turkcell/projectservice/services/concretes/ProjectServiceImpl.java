@@ -1,5 +1,6 @@
 package com.turkcell.projectservice.services.concretes;
 
+import com.turkcell.projectservice.core.utils.types.NotFoundException;
 import com.turkcell.projectservice.entities.Project;
 import com.turkcell.projectservice.repositories.ProjectRepository;
 import com.turkcell.projectservice.services.abstracts.ProjectService;
@@ -13,6 +14,7 @@ import com.turkcell.projectservice.services.dtos.responses.ProjectUpdateResponse
 import com.turkcell.projectservice.services.mappers.ProjectMapper;
 import com.turkcell.projectservice.services.rules.ProjectBusinessRules;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -52,7 +54,14 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectGetResponse getProjectById(int id) {
         projectBusinessRules.checkIfProjectExistsById(id);
-        return ProjectMapper.INSTANCE.getResponseFromProject(projectRepository.findById(id).orElseThrow());
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Project not found with id: " + id));
+
+        if (!project.getActive()) {
+            throw new NotFoundException("Project is not active");
+
+        }
+        return ProjectMapper.INSTANCE.getResponseFromProject(project);
 
     }
 

@@ -1,6 +1,5 @@
 package com.turkcell.taskservice.controllers;
 
-import com.turkcell.taskservice.entities.Task;
 import com.turkcell.taskservice.services.abstracts.TaskService;
 import com.turkcell.taskservice.services.dtos.requests.TaskRequest;
 import com.turkcell.taskservice.services.dtos.requests.TaskUpdateRequest;
