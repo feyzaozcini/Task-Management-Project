@@ -2,8 +2,10 @@ package com.turkcell.taskservice.controllers;
 
 import com.turkcell.taskservice.services.abstracts.TaskService;
 import com.turkcell.taskservice.services.dtos.requests.TaskRequest;
+import com.turkcell.taskservice.services.dtos.requests.TaskSearchRequest;
 import com.turkcell.taskservice.services.dtos.requests.TaskUpdateRequest;
 import com.turkcell.taskservice.services.dtos.responses.TaskResponse;
+import com.turkcell.taskservice.services.dtos.responses.TaskSearchResponse;
 import com.turkcell.taskservice.services.dtos.responses.TaskUpdateResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +38,17 @@ public class TaskController {
         return ResponseEntity.ok(taskResponse);
     }
 
+    @PostMapping("/search")
+    public ResponseEntity<List<TaskSearchResponse>> searchProducts(@RequestBody TaskSearchRequest request) {
+        List<TaskSearchResponse> results = taskService.searchTask(request);
+        return ResponseEntity.ok(results);
+    }
+
     @PutMapping("/update")
     public TaskUpdateResponse updateTask(@RequestBody TaskUpdateRequest request){
         return taskService.updateTask(request);
     }
+
 
 
 }

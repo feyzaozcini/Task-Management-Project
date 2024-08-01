@@ -2,17 +2,27 @@ package com.turkcell.taskservice.services.conretes;
 
 import com.turkcell.common.ProjectGetResponse;
 import com.turkcell.common.UserGetResponse;
+import com.turkcell.projectservice.entities.Project;
+import com.turkcell.projectservice.services.dtos.responses.ProjectSearchResponse;
 import com.turkcell.taskservice.clients.ProjectServiceClient;
 import com.turkcell.taskservice.clients.UserServiceClient;
 import com.turkcell.taskservice.entities.Task;
 import com.turkcell.taskservice.repositories.TaskRepository;
 import com.turkcell.taskservice.services.abstracts.TaskService;
 import com.turkcell.taskservice.services.dtos.requests.TaskRequest;
+import com.turkcell.taskservice.services.dtos.requests.TaskSearchRequest;
 import com.turkcell.taskservice.services.dtos.requests.TaskUpdateRequest;
 import com.turkcell.taskservice.services.dtos.responses.TaskResponse;
+import com.turkcell.taskservice.services.dtos.responses.TaskSearchResponse;
 import com.turkcell.taskservice.services.dtos.responses.TaskUpdateResponse;
 import com.turkcell.taskservice.services.mappers.TaskMapper;
 import com.turkcell.taskservice.services.rules.TaskBusinessRules;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +97,40 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse getTaskById(Integer id) {
         taskBusinessRules.isTaskExist(id);
         return buildResponse(taskRepository.findById(id).orElseThrow());
+    }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+
+    @Override
+    public List<TaskSearchResponse> searchTask(TaskSearchRequest request) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<TaskSearchResponse> cq = cb.createQuery(TaskSearchResponse.class);
+        Root<Task> task = cq.from(Task.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (request.getId() != null) {
+            predicates.add(cb.equal(task.get("id"), request.getId()));
+        }
+
+        if (request.getTaskName() != null && !request.getTaskName().isEmpty()) {
+            predicates.add(cb.like(task.get("taskName"), "%" + request.getTaskName() + "%"));
+        }
+
+        if (request.getProjectId() != null) {
+            predicates.add(cb.equal(task.get("projectId"), request.getProjectId()));
+        }
+
+        cq.select(cb.construct(TaskSearchResponse.class,
+                task.get("id"),
+                task.get("taskName"),
+                task.get("projectId")
+        )).where(cb.and(predicates.toArray(new Predicate[0])));
+
+
+        return entityManager.createQuery(cq).getResultList();
     }
 
 
