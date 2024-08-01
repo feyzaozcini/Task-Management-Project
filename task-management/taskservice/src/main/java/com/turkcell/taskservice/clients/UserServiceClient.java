@@ -13,6 +13,9 @@ import java.util.List;
 @FeignClient(name = "userservice", url = "http://localhost:8091", configuration = FeignConfiguration.class) //Local için
 public interface UserServiceClient {
 
+    @GetMapping("/api/v1/auth/{id}")
+    UserGetResponse getUserById(@PathVariable int id);
+
     @GetMapping("/api/v1/auth/ids")
     List<UserGetResponse> getUsersByIds(@RequestParam List<Integer> ids);
 }

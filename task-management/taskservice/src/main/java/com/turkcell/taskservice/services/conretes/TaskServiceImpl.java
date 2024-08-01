@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -63,4 +65,29 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.save(task);
         return TaskMapper.INSTANCE.updateResponseFromTask(task);
     }
+
+    public TaskResponse buildResponse(Task task){
+        TaskResponse response = TaskMapper.INSTANCE.responseFromTask(task);
+        response.setProject(projectServiceClient.getProjectById(task.getProjectId()));
+        response.setUsers(userServiceClient.getUsersByIds(task.getUserIds()));
+        return response;
+    }
+
+    @Override
+    public List<TaskResponse> getAllTasks() {
+        List<TaskResponse> responses = new ArrayList<>();
+        for(Task task : taskRepository.findAll()){
+            responses.add(buildResponse(task));
+            taskRepository.save(task);
+        }
+        return responses;
+    }
+
+    @Override
+    public TaskResponse getTaskById(Integer id) {
+        taskBusinessRules.isTaskExist(id);
+        return buildResponse(taskRepository.findById(id).orElseThrow());
+    }
+
+
 }
