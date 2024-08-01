@@ -2,8 +2,6 @@ package com.turkcell.taskservice.services.conretes;
 
 import com.turkcell.common.ProjectGetResponse;
 import com.turkcell.common.UserGetResponse;
-import com.turkcell.projectservice.entities.Project;
-import com.turkcell.projectservice.services.dtos.responses.ProjectSearchResponse;
 import com.turkcell.taskservice.clients.ProjectServiceClient;
 import com.turkcell.taskservice.clients.UserServiceClient;
 import com.turkcell.taskservice.entities.Task;

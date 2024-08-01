@@ -1,6 +1,7 @@
 package com.turkcell.taskservice.services.mappers;
 
 import com.turkcell.common.UserGetResponse;
+import com.turkcell.common.events.TaskEvent;
 import com.turkcell.taskservice.entities.Task;
 import com.turkcell.taskservice.services.dtos.requests.TaskRequest;
 import com.turkcell.taskservice.services.dtos.requests.TaskUpdateRequest;
@@ -28,5 +29,7 @@ public interface TaskMapper{
     void updateTaskFromUpdateRequest(TaskUpdateRequest request, @MappingTarget Task task);
 
     TaskUpdateResponse updateResponseFromTask(Task task);
+
+
 
 }
