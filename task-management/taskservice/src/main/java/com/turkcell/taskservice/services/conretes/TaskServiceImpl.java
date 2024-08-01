@@ -8,8 +8,11 @@ import com.turkcell.taskservice.entities.Task;
 import com.turkcell.taskservice.repositories.TaskRepository;
 import com.turkcell.taskservice.services.abstracts.TaskService;
 import com.turkcell.taskservice.services.dtos.requests.TaskRequest;
-import com.turkcell.taskservice.services.dtos.responses.TaskGetResponse;
+import com.turkcell.taskservice.services.dtos.requests.TaskUpdateRequest;
+import com.turkcell.taskservice.services.dtos.responses.TaskResponse;
+import com.turkcell.taskservice.services.dtos.responses.TaskUpdateResponse;
 import com.turkcell.taskservice.services.mappers.TaskMapper;
+import com.turkcell.taskservice.services.rules.TaskBusinessRules;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +33,10 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private final ProjectServiceClient projectServiceClient;
 
+    private final TaskBusinessRules taskBusinessRules;
 
     @Override
-    public TaskGetResponse addTask(TaskRequest request) {
+    public TaskResponse addTask(TaskRequest request) {
         Task task= TaskMapper.INSTANCE.taskFromRequest(request);
         task.setStartDate(LocalDateTime.now());
         task.setEndDate(task.getDeadline().plusDays(10));
@@ -43,11 +47,20 @@ public class TaskServiceImpl implements TaskService {
         ProjectGetResponse project = projectServiceClient.getProjectById(task.getProjectId());
         List<UserGetResponse> users=userServiceClient.getUsersByIds(task.getUserIds());
 
-        TaskGetResponse response= TaskMapper.INSTANCE.responseFromTask(task);
+        TaskResponse response= TaskMapper.INSTANCE.responseFromTask(task);
 
         response.setProject(project);
         response.setUsers(users);
 
         return response;
+    }
+
+    @Override
+    public TaskUpdateResponse updateTask(TaskUpdateRequest request) {
+        taskBusinessRules.isTaskExist(request.getId());
+        Task task=taskRepository.findById(request.getId()).orElseThrow();
+        TaskMapper.INSTANCE.updateTaskFromUpdateRequest(request,task);
+        taskRepository.save(task);
+        return TaskMapper.INSTANCE.updateResponseFromTask(task);
     }
 }

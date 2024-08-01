@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskGetResponse {
+public class TaskResponse {
 
     private Integer id;
     private String taskName;
