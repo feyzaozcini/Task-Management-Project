@@ -21,12 +21,12 @@ import java.util.List;
 public class ProjectController {
     private final ProjectService projectService;
 
-    @PostMapping("/add")
+    @PostMapping()
     public CreatedProjectResponse addProject(@Valid @RequestBody ProjectAddRequest request){
         return projectService.addProject(request);
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public List<ProjectGetResponse> getAllProjects(){
         return projectService.getAllProject();
     }
@@ -36,7 +36,7 @@ public class ProjectController {
         return projectService.getProjectById(id);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public ProjectUpdateResponse updateProduct(@Valid @RequestBody ProjectUpdateRequest request){
         return projectService.updateProject(request);
     }
@@ -47,7 +47,7 @@ public class ProjectController {
         return ResponseEntity.ok(results);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public void deleteProjectById(@PathVariable int id){
         projectService.deleteProjectById(id);
     }
