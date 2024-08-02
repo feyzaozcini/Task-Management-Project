@@ -54,14 +54,15 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectGetResponse getProjectById(int id) {
         projectBusinessRules.checkIfProjectExistsById(id);
-        Project project = projectRepository.findById(id)
+        /*Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Project not found with id: " + id));
 
         if (!project.getActive()) {
             throw new NotFoundException("Project is not active");
 
         }
-        return ProjectMapper.INSTANCE.getResponseFromProject(project);
+        return ProjectMapper.INSTANCE.getResponseFromProject(project);*/
+        return ProjectMapper.INSTANCE.getResponseFromProject(projectRepository.findById(id).orElseThrow());
 
     }
 

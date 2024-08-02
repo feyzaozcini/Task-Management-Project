@@ -3,12 +3,15 @@ package com.turkcell.taskservice.services.rules;
 import com.turkcell.common.ProjectGetResponse;
 import com.turkcell.taskservice.clients.ProjectServiceClient;
 import com.turkcell.taskservice.clients.UserServiceClient;
+import com.turkcell.taskservice.core.utils.types.InvalidEnumException;
 import com.turkcell.taskservice.core.utils.types.NotFoundException;
+import com.turkcell.taskservice.entities.Enum.TaskStatus;
 import com.turkcell.taskservice.repositories.TaskRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.EnumSet;
 
 
 @Service
@@ -38,6 +41,12 @@ public class TaskBusinessRules {
             userServiceClient.getUserById(id);
         } catch (FeignException.NotFound exception) {
             throw new NotFoundException("User not found!");
+        }
+    }
+
+    public void validateTaskStatus(TaskStatus status) {
+        if (status == null || !EnumSet.allOf(TaskStatus.class).contains(status)) {
+            throw new InvalidEnumException("Invalid task status: " + status);
         }
     }
 

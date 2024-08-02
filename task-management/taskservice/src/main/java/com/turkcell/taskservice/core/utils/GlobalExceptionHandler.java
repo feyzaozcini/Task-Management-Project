@@ -1,6 +1,7 @@
 package com.turkcell.taskservice.core.utils;
 
 import com.turkcell.taskservice.core.utils.details.NotFoundDetails;
+import com.turkcell.taskservice.core.utils.types.InvalidEnumException;
 import com.turkcell.taskservice.core.utils.types.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +13,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({NotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public NotFoundDetails handleNotFoundException(NotFoundException exception) {
+        NotFoundDetails notFoundDetails = new NotFoundDetails();
+        notFoundDetails.setMessage(exception.getMessage());
+        return notFoundDetails;
+    }
+
+
+    @ExceptionHandler({InvalidEnumException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public NotFoundDetails handleInvalidEnumException(InvalidEnumException exception) {
         NotFoundDetails notFoundDetails = new NotFoundDetails();
         notFoundDetails.setMessage(exception.getMessage());
         return notFoundDetails;

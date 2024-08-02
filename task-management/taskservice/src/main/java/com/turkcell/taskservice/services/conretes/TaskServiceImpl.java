@@ -4,6 +4,8 @@ import com.turkcell.common.ProjectGetResponse;
 import com.turkcell.common.UserGetResponse;
 import com.turkcell.taskservice.clients.ProjectServiceClient;
 import com.turkcell.taskservice.clients.UserServiceClient;
+import com.turkcell.taskservice.core.utils.types.InvalidEnumException;
+import com.turkcell.taskservice.entities.Enum.TaskStatus;
 import com.turkcell.taskservice.entities.Task;
 import com.turkcell.taskservice.repositories.TaskRepository;
 import com.turkcell.taskservice.services.abstracts.TaskService;
@@ -28,6 +30,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 
@@ -47,6 +50,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponse addTask(TaskRequest request) {
+        validateTaskStatus(request.getStatus());
         Task task= TaskMapper.INSTANCE.taskFromRequest(request);
         task.setStartDate(LocalDateTime.now());
         task.setEndDate(task.getDeadline().plusDays(10));
@@ -63,6 +67,11 @@ public class TaskServiceImpl implements TaskService {
         response.setUsers(users);
 
         return response;
+    }
+    private void validateTaskStatus(TaskStatus status) {
+        if (status == null || !EnumSet.allOf(TaskStatus.class).contains(status)) {
+            throw new InvalidEnumException("Invalid task status: " + status);
+        }
     }
 
     @Override

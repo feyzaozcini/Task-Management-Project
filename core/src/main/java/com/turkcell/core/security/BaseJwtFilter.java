@@ -49,6 +49,12 @@ public class BaseJwtFilter extends OncePerRequestFilter {
                 token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(token);
             }
+            else{
+                //http status ekle 401
+            }
+        }
+        else {
+            //401 dönmesini istiyoruz
         }
 
 

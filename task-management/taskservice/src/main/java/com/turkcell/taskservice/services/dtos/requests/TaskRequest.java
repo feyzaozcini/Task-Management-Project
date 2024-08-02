@@ -1,6 +1,8 @@
 package com.turkcell.taskservice.services.dtos.requests;
 
 import com.turkcell.taskservice.entities.Enum.TaskStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

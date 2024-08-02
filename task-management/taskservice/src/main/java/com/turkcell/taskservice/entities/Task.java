@@ -32,7 +32,6 @@ public class Task {
     @Enumerated(EnumType.STRING)
     @Column(name = "task_status")
     private TaskStatus status;
-
     @Column(name = "start_date")
     private LocalDateTime startDate;
     @Column(name = "end_date")

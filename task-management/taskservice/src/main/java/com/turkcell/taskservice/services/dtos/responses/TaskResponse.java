@@ -29,4 +29,9 @@ public class TaskResponse {
     private ProjectGetResponse project;
     private List<UserGetResponse> users;
 
+    private String errorMessage;
+    public TaskResponse(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
 }
