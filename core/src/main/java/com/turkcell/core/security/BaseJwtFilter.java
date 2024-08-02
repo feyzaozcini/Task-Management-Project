@@ -50,11 +50,15 @@ public class BaseJwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(token);
             }
             else{
-                //http status ekle 401
+                // JWT geçersiz, 401 Unauthorized döndür.
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Invalid or expired JWT token");
             }
         }
         else {
-            //401 dönmesini istiyoruz
+            // JWT başlığı yok veya format hatası, 401 Unauthorized döndür.
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Missing or invalid Authorization header");
         }
 
 

@@ -120,6 +120,7 @@
 			<artifactId>core</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+
         <dependency>
             <groupId>com.turkcell</groupId>
             <artifactId>projectservice</artifactId>

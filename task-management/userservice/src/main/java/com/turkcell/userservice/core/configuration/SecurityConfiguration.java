@@ -2,6 +2,7 @@ package com.turkcell.userservice.core.configuration;
 
 
 
+
 import com.turkcell.tcellfinalcore.services.BaseSecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

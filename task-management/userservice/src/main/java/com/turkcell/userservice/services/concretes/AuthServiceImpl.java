@@ -1,6 +1,5 @@
 package com.turkcell.userservice.services.concretes;
 
-
 import com.turkcell.tcellfinalcore.services.BaseJwtService;
 import com.turkcell.userservice.core.utils.types.BusinessException;
 import com.turkcell.userservice.entities.User;
