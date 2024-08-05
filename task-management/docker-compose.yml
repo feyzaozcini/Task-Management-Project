@@ -1,4 +1,22 @@
 services:
+  s_couchbase_db:
+    container_name: c_couchbase_db
+    image: couchbase:latest
+    ports:
+      - 8092:8092
+    expose:
+      - 8092
+      - 8093
+      - 8094
+      - 8095
+      - 8096
+      - 8097
+      - 9123
+      - 11207
+
+    networks:
+      - common
+    restart: always
   postgres:
     image: postgres
     ports:
