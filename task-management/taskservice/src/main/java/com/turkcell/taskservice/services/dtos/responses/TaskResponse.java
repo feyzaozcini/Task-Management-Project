@@ -1,7 +1,7 @@
 package com.turkcell.taskservice.services.dtos.responses;
 
-import com.turkcell.common.ProjectGetResponse;
-import com.turkcell.common.UserGetResponse;
+import com.turkcell.taskservice.clients.ProjectGetResponse;
+import com.turkcell.taskservice.clients.UserGetResponse;
 import com.turkcell.taskservice.entities.Enum.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

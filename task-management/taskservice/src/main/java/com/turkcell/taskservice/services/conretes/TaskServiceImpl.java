@@ -1,8 +1,10 @@
 package com.turkcell.taskservice.services.conretes;
 
-import com.turkcell.common.ProjectGetResponse;
-import com.turkcell.common.UserGetResponse;
+
+
+import com.turkcell.taskservice.clients.ProjectGetResponse;
 import com.turkcell.taskservice.clients.ProjectServiceClient;
+import com.turkcell.taskservice.clients.UserGetResponse;
 import com.turkcell.taskservice.clients.UserServiceClient;
 import com.turkcell.taskservice.core.utils.types.InvalidEnumException;
 import com.turkcell.taskservice.entities.Enum.TaskStatus;
@@ -12,9 +14,7 @@ import com.turkcell.taskservice.services.abstracts.TaskService;
 import com.turkcell.taskservice.services.dtos.requests.TaskRequest;
 import com.turkcell.taskservice.services.dtos.requests.TaskSearchRequest;
 import com.turkcell.taskservice.services.dtos.requests.TaskUpdateRequest;
-import com.turkcell.taskservice.services.dtos.responses.TaskResponse;
-import com.turkcell.taskservice.services.dtos.responses.TaskSearchResponse;
-import com.turkcell.taskservice.services.dtos.responses.TaskUpdateResponse;
+import com.turkcell.taskservice.services.dtos.responses.*;
 import com.turkcell.taskservice.services.mappers.TaskMapper;
 import com.turkcell.taskservice.services.rules.TaskBusinessRules;
 import jakarta.persistence.EntityManager;

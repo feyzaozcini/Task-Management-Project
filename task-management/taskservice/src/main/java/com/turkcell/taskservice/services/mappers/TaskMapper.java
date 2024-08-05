@@ -1,6 +1,7 @@
 package com.turkcell.taskservice.services.mappers;
 
-import com.turkcell.common.UserGetResponse;
+
+import com.turkcell.taskservice.clients.UserGetResponse;
 import com.turkcell.taskservice.entities.Task;
 import com.turkcell.taskservice.services.dtos.requests.TaskRequest;
 import com.turkcell.taskservice.services.dtos.requests.TaskUpdateRequest;
