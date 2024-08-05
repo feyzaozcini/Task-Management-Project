@@ -23,15 +23,9 @@ public class TaskResponse {
     private TaskStatus status;
 
     private LocalDateTime startDate;
-    private LocalDateTime endDate;
     private LocalDateTime deadline;
 
     private ProjectGetResponse project;
     private List<UserGetResponse> users;
-
-    private String errorMessage;
-    public TaskResponse(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
 
 }

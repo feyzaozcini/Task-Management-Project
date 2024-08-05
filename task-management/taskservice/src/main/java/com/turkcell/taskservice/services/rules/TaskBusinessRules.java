@@ -36,13 +36,7 @@ public class TaskBusinessRules {
             throw new NotFoundException("Task Not Found!");
     }
 
-    public void checkUserIsExistById(int id) {
-        try {
-            userServiceClient.getUserById(id);
-        } catch (FeignException.NotFound exception) {
-            throw new NotFoundException("User not found!");
-        }
-    }
+
 
     public void validateTaskStatus(TaskStatus status) {
         if (status == null || !EnumSet.allOf(TaskStatus.class).contains(status)) {

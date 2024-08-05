@@ -1,7 +1,6 @@
 package com.turkcell.taskservice.services.dtos.responses;
 
-import com.turkcell.common.ProjectGetResponse;
-import com.turkcell.common.UserGetResponse;
+
 import com.turkcell.taskservice.entities.Enum.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 @Getter
 @Setter
