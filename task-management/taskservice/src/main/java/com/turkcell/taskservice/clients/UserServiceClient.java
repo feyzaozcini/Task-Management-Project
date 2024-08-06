@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "userservice", url = "http://localhost:8091", configuration = FeignConfiguration.class) //Local için
+@FeignClient(name = "userservice", url = "http://localhost:8093", configuration = FeignConfiguration.class) //Local için
 public interface UserServiceClient {
 
     @GetMapping("/api/v1/auth/{id}")

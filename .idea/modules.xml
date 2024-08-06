@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/task-management/discoveryserver/discoveryserver.iml" filepath="$PROJECT_DIR$/task-management/discoveryserver/discoveryserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/task-management/gatewayserver/gatewayserver.iml" filepath="$PROJECT_DIR$/task-management/gatewayserver/gatewayserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/task-management/notificationservice/notificationservice.iml" filepath="$PROJECT_DIR$/task-management/notificationservice/notificationservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/task-management/projectservice/projectservice.iml" filepath="$PROJECT_DIR$/task-management/projectservice/projectservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/task-management/taskservice/taskservice.iml" filepath="$PROJECT_DIR$/task-management/taskservice/taskservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/task-management/userservice/userservice.iml" filepath="$PROJECT_DIR$/task-management/userservice/userservice.iml" />

@@ -1,19 +1,16 @@
 services:
-  s_couchbase_db:
+  couchbase_db:
     container_name: c_couchbase_db
     image: couchbase:latest
     ports:
-      - 8092:8092
-    expose:
-      - 8092
-      - 8093
-      - 8094
-      - 8095
-      - 8096
-      - 8097
-      - 9123
-      - 11207
-
+      - 8091:8091
+      - 11210:11210
+  couchbase-db:
+    container_name: couchbase_db
+    image: couchbase:latest
+    ports:
+      - 8091:8091
+      - 11210:11210
     networks:
       - common
     restart: always
