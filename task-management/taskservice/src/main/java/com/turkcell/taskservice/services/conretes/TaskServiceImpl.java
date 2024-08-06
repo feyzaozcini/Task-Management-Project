@@ -1,11 +1,11 @@
 package com.turkcell.taskservice.services.conretes;
 
-
-
 import com.turkcell.taskservice.clients.ProjectGetResponse;
 import com.turkcell.taskservice.clients.ProjectServiceClient;
 import com.turkcell.taskservice.clients.UserGetResponse;
 import com.turkcell.taskservice.clients.UserServiceClient;
+import com.turkcell.taskservice.config.kafka.producer.KafkaProducer;
+import com.turkcell.taskservice.config.kafka.properties.TaskCreatedTopicProperties;
 import com.turkcell.taskservice.core.utils.types.InvalidEnumException;
 import com.turkcell.taskservice.entities.Enum.TaskStatus;
 import com.turkcell.taskservice.entities.Task;
@@ -27,11 +27,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -47,6 +44,10 @@ public class TaskServiceImpl implements TaskService {
     private final ProjectServiceClient projectServiceClient;
 
     private final TaskBusinessRules taskBusinessRules;
+
+    private final KafkaProducer kafkaProducer;
+
+    private final TaskCreatedTopicProperties taskCreatedTopicProperties;
 
     @Override
     public TaskResponse addTask(TaskRequest request) {
@@ -64,6 +65,12 @@ public class TaskServiceImpl implements TaskService {
 
         response.setProject(project);
         response.setUsers(users);
+
+        kafkaProducer.sendMessage(
+                taskCreatedTopicProperties.getTopicName(),
+                response,
+                response.getId().toString()
+        );
 
         return response;
     }
