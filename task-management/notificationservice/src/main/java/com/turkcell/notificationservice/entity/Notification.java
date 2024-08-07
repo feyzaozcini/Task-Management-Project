@@ -15,7 +15,6 @@ import static org.springframework.data.couchbase.core.mapping.id.GenerationStrat
 @Setter
 @Document
 @Builder
-
 public class Notification {
     @Id
     @GeneratedValue(strategy = UNIQUE)

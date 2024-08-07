@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 
+
 @Service
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
@@ -65,6 +66,7 @@ public class TaskServiceImpl implements TaskService {
 
         response.setProject(project);
         response.setUsers(users);
+
 
         kafkaProducer.sendMessage(
                 taskCreatedTopicProperties.getTopicName(),

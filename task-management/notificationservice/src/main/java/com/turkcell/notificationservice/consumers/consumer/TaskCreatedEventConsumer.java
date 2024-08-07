@@ -17,23 +17,24 @@ import org.springframework.stereotype.Component;
 public class TaskCreatedEventConsumer {
     private final NotificationService notificationService;
 
-
     @KafkaListener(topics = "${kafka.topics.task-created.topic}",
             groupId = "${kafka.topics.task-created.consumerGroup}",
             containerFactory = "concurrentKafkaListenerContainerFactory"
     )
-    public void consumeCreatedUserEvent(@Payload TaskCreatedEvent eventData,
+    public void consumeCreatedTaskEvent(@Payload TaskCreatedEvent eventData,
                                         @Headers ConsumerRecord<String, Object> consumerRecord) {
-        log.info("UserCreatedEventConsumer.consumeApprovalRequestResultedEvent consumed EVENT :{} " +
-                        "from partition : {} " +
-                        "with offset : {} " +
-                        "thread : {} " +
-                        "for message key: {}",
-                eventData, consumerRecord.partition(), consumerRecord.offset(), Thread.currentThread().getName(), consumerRecord.key());
+        try {
+            log.info("Received TaskCreatedEvent: {} from partition: {} with offset: {}",
+                    eventData, consumerRecord.partition(), consumerRecord.offset());
 
-        Notification entity = Notification.EventToNotificationEntity(eventData);
+            Notification entity = Notification.EventToNotificationEntity(eventData);
+            notificationService.save(entity);
 
-        notificationService.save(entity);
+            log.info("Successfully processed TaskCreatedEvent for message key: {}",
+                    consumerRecord.key());
 
+        } catch (Exception e) {
+            log.error("Error processing TaskCreatedEvent", e);
+        }
     }
 }
