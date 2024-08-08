@@ -21,12 +21,12 @@ import java.util.List;
 public class ProjectController {
     private final ProjectService projectService;
 
-    @PostMapping()
+    @PostMapping
     public CreatedProjectResponse addProject(@Valid @RequestBody ProjectAddRequest request){
         return projectService.addProject(request);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<ProjectGetResponse> getAllProjects(){
         return projectService.getAllProject();
     }
@@ -36,7 +36,7 @@ public class ProjectController {
         return projectService.getProjectById(id);
     }
 
-    @PutMapping()
+    @PutMapping
     public ProjectUpdateResponse updateProduct(@Valid @RequestBody ProjectUpdateRequest request){
         return projectService.updateProject(request);
     }

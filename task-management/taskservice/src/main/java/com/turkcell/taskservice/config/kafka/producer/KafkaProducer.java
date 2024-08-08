@@ -12,7 +12,6 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 @Slf4j
 public class KafkaProducer {
-
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
     public void sendMessage(String topic, Object payload, String messageKey) {

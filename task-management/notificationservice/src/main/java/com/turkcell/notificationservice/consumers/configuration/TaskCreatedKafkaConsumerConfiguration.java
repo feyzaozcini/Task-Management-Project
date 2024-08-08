@@ -43,6 +43,7 @@ public class TaskCreatedKafkaConsumerConfiguration<T> {
                 = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         //factory.setMessageConverter(new StringJsonMessageConverter());
+
         return factory;
     }
 }
