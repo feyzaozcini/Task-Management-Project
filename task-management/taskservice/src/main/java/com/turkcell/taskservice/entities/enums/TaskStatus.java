@@ -1,4 +1,4 @@
-package com.turkcell.taskservice.entities.Enum;
+package com.turkcell.taskservice.entities.enums;
 
 public enum TaskStatus {
     ONHOLD,

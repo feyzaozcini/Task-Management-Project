@@ -1,15 +1,18 @@
 package com.turkcell.taskservice.services.conretes;
 
+
 import com.turkcell.common.events.KafkaTaskEvent;
+import com.turkcell.common.events.KafkaTaskUpdateEvent;
 import com.turkcell.taskservice.clients.ProjectGetResponse;
 import com.turkcell.taskservice.clients.ProjectServiceClient;
 import com.turkcell.taskservice.clients.UserGetResponse;
 import com.turkcell.taskservice.clients.UserServiceClient;
 import com.turkcell.taskservice.config.kafka.producer.KafkaProducer;
 import com.turkcell.taskservice.config.kafka.properties.TaskCreatedTopicProperties;
+import com.turkcell.taskservice.config.kafka.properties.TaskUpdatedTopicProperties;
 import com.turkcell.taskservice.core.utils.types.InvalidEnumException;
-import com.turkcell.taskservice.entities.Enum.TaskStatus;
 import com.turkcell.taskservice.entities.Task;
+import com.turkcell.taskservice.entities.enums.TaskStatus;
 import com.turkcell.taskservice.repositories.TaskRepository;
 import com.turkcell.taskservice.services.abstracts.TaskService;
 import com.turkcell.taskservice.services.dtos.requests.TaskRequest;
@@ -32,7 +35,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 
-
 @Service
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
@@ -50,6 +52,8 @@ public class TaskServiceImpl implements TaskService {
     private final KafkaProducer kafkaProducer;
 
     private final TaskCreatedTopicProperties taskCreatedTopicProperties;
+
+    private final TaskUpdatedTopicProperties taskUpdatedTopicProperties;
 
     @Override
     public TaskResponse addTask(TaskRequest request) {
@@ -89,8 +93,19 @@ public class TaskServiceImpl implements TaskService {
         taskBusinessRules.isTaskExist(request.getId());
         Task task=taskRepository.findById(request.getId()).orElseThrow();
         TaskMapper.INSTANCE.updateTaskFromUpdateRequest(request,task);
-        taskRepository.save(task);
-        return TaskMapper.INSTANCE.updateResponseFromTask(task);
+        task=taskRepository.save(task);
+
+        TaskUpdateResponse response=TaskMapper.INSTANCE.updateResponseFromTask(task);
+
+
+        //Kafka Topic mesajı
+
+        kafkaProducer.sendMessage(
+                taskUpdatedTopicProperties.getTopicName(),
+                KafkaTaskUpdateEvent.builder().id(response.getId()).taskName(response.getTaskName()).description(response.getDescription()).deadline(response.getDeadline()).build(),
+                response.getId().toString()
+        );
+        return response;
     }
 
     public TaskResponse buildResponse(Task task){

@@ -1,6 +1,6 @@
 package com.turkcell.taskservice.entities;
 
-import com.turkcell.taskservice.entities.Enum.TaskStatus;
+import com.turkcell.taskservice.entities.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

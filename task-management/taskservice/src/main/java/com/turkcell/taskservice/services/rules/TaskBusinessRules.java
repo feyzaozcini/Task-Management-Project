@@ -4,7 +4,7 @@ import com.turkcell.taskservice.clients.ProjectServiceClient;
 import com.turkcell.taskservice.clients.UserServiceClient;
 import com.turkcell.taskservice.core.utils.types.InvalidEnumException;
 import com.turkcell.taskservice.core.utils.types.NotFoundException;
-import com.turkcell.taskservice.entities.Enum.TaskStatus;
+import com.turkcell.taskservice.entities.enums.TaskStatus;
 import com.turkcell.taskservice.repositories.TaskRepository;
 import com.turkcell.taskservice.clients.ProjectGetResponse;
 import feign.FeignException;
