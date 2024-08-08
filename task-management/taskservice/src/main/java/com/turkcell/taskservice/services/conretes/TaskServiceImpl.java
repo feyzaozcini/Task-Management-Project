@@ -1,5 +1,6 @@
 package com.turkcell.taskservice.services.conretes;
 
+import com.turkcell.common.events.KafkaTaskEvent;
 import com.turkcell.taskservice.clients.ProjectGetResponse;
 import com.turkcell.taskservice.clients.ProjectServiceClient;
 import com.turkcell.taskservice.clients.UserGetResponse;
@@ -58,6 +59,8 @@ public class TaskServiceImpl implements TaskService {
         task.setActive(true);
         task=taskRepository.save(task);
 
+
+
         //Alınan userları ve projeyi get isteği atarak getirme
         ProjectGetResponse project = projectServiceClient.getProjectById(task.getProjectId());
         List<UserGetResponse> users=userServiceClient.getUsersByIds(task.getUserIds());
@@ -67,10 +70,9 @@ public class TaskServiceImpl implements TaskService {
         response.setProject(project);
         response.setUsers(users);
 
-
         kafkaProducer.sendMessage(
                 taskCreatedTopicProperties.getTopicName(),
-                response,
+                KafkaTaskEvent.builder().id(response.getId()).taskName(response.getTaskName()).description(response.getDescription()).startDate(response.getStartDate()).deadline(response.getDeadline()).build(),
                 response.getId().toString()
         );
 

@@ -14,6 +14,7 @@ import java.util.List;
 public interface TaskService {
     TaskResponse addTask(TaskRequest request);
 
+
     TaskUpdateResponse updateTask(TaskUpdateRequest request);
 
     List<TaskResponse> getAllTasks();

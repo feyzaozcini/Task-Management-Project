@@ -130,6 +130,12 @@
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.turkcell</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.3</version>
+		</dependency>
+
 
 	</dependencies>
 

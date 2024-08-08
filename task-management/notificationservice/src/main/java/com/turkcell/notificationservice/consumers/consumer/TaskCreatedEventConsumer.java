@@ -1,8 +1,10 @@
 package com.turkcell.notificationservice.consumers.consumer;
 
-import com.turkcell.notificationservice.consumers.model.TaskCreatedEvent;
+
+import com.turkcell.common.events.KafkaTaskEvent;
 import com.turkcell.notificationservice.entity.Notification;
 import com.turkcell.notificationservice.service.NotificationService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -21,22 +23,20 @@ public class TaskCreatedEventConsumer {
             groupId = "${kafka.topics.task-created.consumerGroup}",
             containerFactory = "concurrentKafkaListenerContainerFactory"
     )
-    public void consumeCreatedTaskEvent(@Payload TaskCreatedEvent eventData,
+    public void consumeCreatedTaskEvent(@Payload KafkaTaskEvent eventData,
                                         @Headers ConsumerRecord<String, Object> consumerRecord) {
         try {
-            /*log.info("Received TaskCreatedEvent: {} from partition: {} with offset: {}",
-                    eventData, consumerRecord.partition(), consumerRecord.offset());*/
+
 
             Notification entity = Notification.EventToNotificationEntity(eventData);
             notificationService.save(entity);
 
             // Konsola basmak için
             log.info("Message Content: {}", eventData);
-            /*log.info("Successfully processed TaskCreatedEvent for message key: {}",
-                    consumerRecord.key());*/
+
 
         } catch (Exception e) {
-            log.error("Error processing TaskCreatedEvent", e);
+            log.error("Error processing KafkaTaskEvent", e);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.turkcell.notificationservice.entity;
 
-import com.turkcell.notificationservice.consumers.model.TaskCreatedEvent;
+
+import com.turkcell.common.events.KafkaTaskEvent;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +27,7 @@ public class Notification {
     @Field
     private Boolean isSend;
 
-    public static Notification EventToNotificationEntity(TaskCreatedEvent event) {
+    public static Notification EventToNotificationEntity(KafkaTaskEvent event) {
         return Notification.builder()
                 .taskId(event.getId())
                 .taskName(event.getTaskName())
