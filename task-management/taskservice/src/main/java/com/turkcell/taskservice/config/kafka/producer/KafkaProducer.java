@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.messaging.support.GenericMessage;
 import org.springframework.stereotype.Component;
 import java.util.concurrent.CompletableFuture;
 

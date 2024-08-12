@@ -31,5 +31,4 @@ public interface TaskMapper{
     TaskUpdateResponse updateResponseFromTask(Task task);
 
 
-
 }

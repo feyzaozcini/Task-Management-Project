@@ -1,7 +1,5 @@
 package com.turkcell.taskservice.services.dtos.requests;
 
-
-
 import com.turkcell.taskservice.entities.enums.TaskStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

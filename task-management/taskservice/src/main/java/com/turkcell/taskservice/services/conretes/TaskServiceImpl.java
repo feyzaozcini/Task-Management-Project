@@ -63,9 +63,6 @@ public class TaskServiceImpl implements TaskService {
         task.setActive(true);
         task=taskRepository.save(task);
 
-
-
-        //Alınan userları ve projeyi get isteği atarak getirme
         ProjectGetResponse project = projectServiceClient.getProjectById(task.getProjectId());
         List<UserGetResponse> users=userServiceClient.getUsersByIds(task.getUserIds());
 
@@ -97,7 +94,6 @@ public class TaskServiceImpl implements TaskService {
 
         TaskUpdateResponse response=TaskMapper.INSTANCE.updateResponseFromTask(task);
 
-
         //Kafka Topic mesajı
 
         kafkaProducer.sendMessage(
@@ -105,6 +101,7 @@ public class TaskServiceImpl implements TaskService {
                 KafkaTaskUpdateEvent.builder().id(response.getId()).taskName(response.getTaskName()).description(response.getDescription()).deadline(response.getDeadline()).build(),
                 response.getId().toString()
         );
+
         return response;
     }
 
