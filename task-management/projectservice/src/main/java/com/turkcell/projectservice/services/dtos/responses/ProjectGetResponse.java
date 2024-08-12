@@ -12,8 +12,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectGetResponse implements Serializable {
-    private static final long serialVersionUID = 1L;
-
     private Integer id;
 
     private String projectName;
