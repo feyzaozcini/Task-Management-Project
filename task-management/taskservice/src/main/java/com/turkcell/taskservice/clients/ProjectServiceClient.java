@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "projectservice", url = "http://localhost:8094", configuration = FeignConfiguration.class) //Local için
 public interface ProjectServiceClient {
-    @GetMapping(value = "/api/v1/project/{id}")
+    @GetMapping(value = "/api/v1/projects/{id}")
     ProjectGetResponse getProjectById(@PathVariable int id);
 }

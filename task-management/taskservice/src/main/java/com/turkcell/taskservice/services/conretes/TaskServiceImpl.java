@@ -10,7 +10,6 @@ import com.turkcell.taskservice.clients.UserServiceClient;
 import com.turkcell.taskservice.config.kafka.producer.KafkaProducer;
 import com.turkcell.taskservice.config.kafka.properties.TaskCreatedTopicProperties;
 import com.turkcell.taskservice.config.kafka.properties.TaskUpdatedTopicProperties;
-import com.turkcell.taskservice.core.utils.types.InvalidEnumException;
 import com.turkcell.taskservice.entities.Task;
 import com.turkcell.taskservice.entities.enums.TaskStatus;
 import com.turkcell.taskservice.repositories.TaskRepository;
@@ -57,7 +56,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponse addTask(TaskRequest request) {
-        validateTaskStatus(request.getStatus());
         Task task= TaskMapper.INSTANCE.taskFromRequest(request);
         task.setStartDate(LocalDateTime.now());
         task.setActive(true);
@@ -79,11 +77,7 @@ public class TaskServiceImpl implements TaskService {
 
         return response;
     }
-    private void validateTaskStatus(TaskStatus status) {
-        if (status == null || !EnumSet.allOf(TaskStatus.class).contains(status)) {
-            throw new InvalidEnumException("Invalid task status: " + status);
-        }
-    }
+
 
     @Override
     public TaskUpdateResponse updateTask(TaskUpdateRequest request) {

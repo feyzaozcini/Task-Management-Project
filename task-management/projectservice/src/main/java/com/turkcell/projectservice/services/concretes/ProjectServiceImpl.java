@@ -1,6 +1,5 @@
 package com.turkcell.projectservice.services.concretes;
 
-import com.turkcell.projectservice.core.utils.types.NotFoundException;
 import com.turkcell.projectservice.entities.Project;
 import com.turkcell.projectservice.repositories.ProjectRepository;
 import com.turkcell.projectservice.services.abstracts.ProjectService;
@@ -14,13 +13,15 @@ import com.turkcell.projectservice.services.dtos.responses.ProjectUpdateResponse
 import com.turkcell.projectservice.services.mappers.ProjectMapper;
 import com.turkcell.projectservice.services.rules.ProjectBusinessRules;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -35,7 +36,6 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectBusinessRules projectBusinessRules;
 
 
-
     @Override
     public CreatedProjectResponse addProject(ProjectAddRequest request) {
         Project project= ProjectMapper.INSTANCE.projectFromAddRequest(request);
@@ -46,27 +46,22 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Cacheable(value = "projects", key = "'all'")
     public List<ProjectGetResponse> getAllProject() {
         projectBusinessRules.checkIfAnyProjectIsExist();
         return projectRepository.findAll().stream().filter(Project::getActive).map((project)-> ProjectMapper.INSTANCE.getResponseFromProject(project)).collect(Collectors.toList());
     }
 
     @Override
+    @Cacheable(value = "projects", key = "#id")
     public ProjectGetResponse getProjectById(int id) {
         projectBusinessRules.checkIfProjectExistsById(id);
-        /*Project project = projectRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Project not found with id: " + id));
 
-        if (!project.getActive()) {
-            throw new NotFoundException("Project is not active");
-
-        }
-        return ProjectMapper.INSTANCE.getResponseFromProject(project);*/
         return ProjectMapper.INSTANCE.getResponseFromProject(projectRepository.findById(id).orElseThrow());
-
     }
 
     @Override
+    @CachePut(value = "projects", key = "#request.id")
     public ProjectUpdateResponse updateProject(ProjectUpdateRequest request) {
         projectBusinessRules.checkIfProjectExistsById(request.getId());
         Project project=projectRepository.findById(request.getId()).orElseThrow();
@@ -77,6 +72,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @CacheEvict(value = "projects", key = "#id")
     public void deleteProjectById(int id) {
         projectBusinessRules.checkIfProjectExistsById(id);
         Project project=projectRepository.findById(id).orElseThrow();
