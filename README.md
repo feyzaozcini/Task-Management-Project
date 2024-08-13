@@ -7,6 +7,12 @@ In this project,
 - Notification-consumer service listen task_service.task_created.0 and task_service.task_updated.0 topics and simulates the logic of sending notification after the event it consumes after notification is sending successfully service insert a record onto couchbase notification bucket.
 ## System Architechure
 ![](images/systemarch.JPG)
+
+## Configuration Repository and Core Repository
+- [Project Configuration Files Repository](https://github.com/feyzaozcini/task-management-config).
+  
+- [Core Project Repository](https://github.com/feyzaozcini/TurkcellCRMCore) and [Core Project Deployment On Maven Central](https://central.sonatype.com/artifact/io.github.haiykut/core).
+
 ## 💻 Technologies
 
 - [Java 17](https://docs.oracle.com/en/java/javase/17/)
