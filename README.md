@@ -24,6 +24,57 @@ In this project,
 - [Docker](https://www.docker.com/get-started/)
 - [Couchbase](https://www.couchbase.com/)
 - [Flyway](https://www.red-gate.com/products/flyway/community/)
+
+## Setup
+- Before run project you need to start docker desktop
+- After docker is up, run the docker-compose.yml 
+- After the run docker-compose.yml file you will see docker desktop like this: 
+![](images/docker.JPG)
+
+## DB Connection
+# Postgre Connection:
+    url: jdbc:postgresql://localhost:5432/userservice
+    username: prostgres
+    password: test
+
+    url: jdbc:postgresql://localhost:5432/projectservice
+    username: prostgres
+    password: test
+
+    url: jdbc:postgresql://localhost:5432/taskservice
+    username: prostgres
+    password: test
+
+
+# Couchbase Connection & Settings
+- #### Open http://localhost:8091/ on your browser
+
+![](images/login.JPG)
+
+      username: Administrator
+      password: 123456
+
+- #### Open the buckets tab and click the **ADD BUCKET**
+![](images/add_bucket.png)
+
+- #### write the bucket name in our example => bucket name is **"notification"**
+![](images/add_bucket_to_cluster.png)
+
+- #### After that open the query tab on the left side
+![](images/QUERY.JPG)
+- #### Run 2 query separately to create index on bucket
+
+      1) CREATE PRIMARY INDEX `idx_default_primary_notification` ON `notification`
+      2) CREATE INDEX `id` ON `notification`(`id`)
+- #### Open the Security tab on the left side and click the **ADD USER** 
+![](images/add_user.png)
+- #### After click the add user you will see a new popup and fill the informations like :
+      Username: admin
+      Full Name: admin
+      Password: 123456
+      Verify Password: 123456
+![](images/admin_user_settings.png)
+
 ### User Service
 Users register and log in to the system
 
