@@ -115,3 +115,14 @@ The Notification Service listens for task creation and update events using Kafka
 taskservice.task_created.0: Published when a task is created.
 
 taskservice.task_updated.0: Published when a task is updated.
+
+- Kafka UI
+![](images/kafkaui.JPG)
+
+- Task Service Producer
+![](images/producer.JPG)
+
+- Notification Consumer
+![](images/consumer.JPG)
+
+
