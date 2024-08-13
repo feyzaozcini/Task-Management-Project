@@ -5,7 +5,8 @@ In this project,
 - In the task service, a new task is created using users and the project.-
 - There are 4 microservices, when a task created via task-service that service insert a record onto task table(postgre) and it produce an event to task_service.task_created.0 topic.And when a task updated via task-service that service update a record onto task table(postgre) and it produce an event to task_service.task_updated.0 topic.
 - Notification-consumer service listen task_service.task_created.0 and task_service.task_updated.0 topics and simulates the logic of sending notification after the event it consumes after notification is sending successfully service insert a record onto couchbase notification bucket.
-
+## System Architechure
+![](images/systemarch.JPG)
 ## 💻 Technologies
 
 - [Java 17](https://docs.oracle.com/en/java/javase/17/)
